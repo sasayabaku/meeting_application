@@ -1,0 +1,44 @@
+/* ログイン時のスタイル */
+
+.in_form {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.in_form .form_content {
+    width: 600px;
+    height:400px;
+    padding-top: 1.5rem;
+    display: block;
+}
+
+.in_form .form_content h2 {
+    text-align: center;
+}
+
+.in_form .form_content .textfield {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem 0;
+}
+
+.space {
+    width: 100%;
+}
+
+.accent {
+    color: blue;
+}
+
+.background {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: -100;
+}

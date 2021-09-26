@@ -1,0 +1,10 @@
+.myvideo {
+    display: block;
+    position: relative;
+    color: #fff;
+    overflow: hidden;
+}
+
+.myvideo video {
+    object-fit: cover;
+}
