@@ -32,11 +32,11 @@ const FrontPage = () =>{
                 <Paper className={styles.form_content}>
                     <h2><span className={styles.accent}>E</span>nter Meeting</h2>
                     <div className={styles.textfield}>
-                        <TextField className={styles.textfield} id="" label="Room ID"
+                        <TextField className={styles.textfield} id="" label="Skyway API Key"
                             value={skywayId} onChange={(e) => {dispatch(setId({value: e.target.value}));}}
                         />
                         <div className={styles.space} />
-                        <TextField className={styles.textfield} id="" label="Skyway API Key"
+                        <TextField className={styles.textfield} id="" label="Room ID"
                             value={roomId} onChange={(e) => {dispatch(setRoom({value: e.target.value}));}}
 
                         />
