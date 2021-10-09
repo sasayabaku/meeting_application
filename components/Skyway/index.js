@@ -4,6 +4,10 @@ import Peer from 'skyway-js';
 import toast, { Toaster } from 'react-hot-toast';
 
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Button from'@material-ui/core/Button';
+import CancelIcon from '@material-ui/icons/Cancel';
+import RepeatIcon from '@material-ui/icons/Repeat';
 
 import { selectId, selectRoom } from '../../state/slices/skyway';
 
@@ -108,13 +112,37 @@ const Skyway = () => {
                     track.stop();
                 });
             };
-            yourVideo.current.srcObjec = null;
+            yourVideo.current.srcObject = null;
         });
 
         setPeer(peer);
         setRoom(room);
     };
 
+    const disconnection = () => {
+        if (myVideo.current.srcObject !== null || typeof myVideo.current.srcObject === 'undefined'){
+            myVideo.current.srcObject.getTracks().forEach((track) => {
+                track.stop();
+            });
+        };
+
+        if (yourVideo.current.srcObject !== null || typeof yourVideo.current.srcObject === 'undefined'){
+            yourVideo.current.srcObject.getTracks().forEach((track) => {
+                track.stop();
+            });                
+        };
+
+        myVideo.current.srcObject = null;
+        yourVideo.current.srcObject = null;
+
+        // Skywayの切断
+        room.close();
+        setRoom(null);
+        peerId.destroy();
+        setPeer(null);
+    };
+
+    // 画面遷移後 自動接続
     useEffect(() => {
         makePeer();
     }, []);
@@ -133,6 +161,36 @@ const Skyway = () => {
                         <video id="yourvideo" ref={yourVideo} width="100%" height="100%" autoPlay muted playsInline />
                     </div>
                     <div>Your Video</div>
+                </Grid>
+            </Grid>
+
+            <Grid container spacing={1} alignItems="center" justifyContent="center">
+                <Grid item sm={8}>
+                    <Paper style={{padding: '0.7rem'}}>
+                        <Grid container spacing={2} alignItems="center" justifyContent="center">
+
+                            <Grid item sm={6} lg={2}>
+                                <Button variant="outlined" onClick={() => {disconnection();}}
+                                    style={{color:"#f54542", borderColor:"#f54542", borderWidth:"2px"}}
+                                >
+                                    <CancelIcon />
+                                    <span>&nbsp;&nbsp;</span>
+                                    <span>切断</span>
+                                </Button>
+                            </Grid>
+
+                            <Grid item sm={6} lg={2}>
+                                <Button variant="outlined" onClick={() => {makePeer();}}
+                                    style={{color:"#26bdeb", borderColor:"#26bdeb", borderWidth:"2px"}}
+                                >
+                                    <RepeatIcon />
+                                    <span>&nbsp;&nbsp;</span>
+                                    <span>再接続</span>
+                                </Button>
+                            </Grid>
+
+                        </Grid>
+                    </Paper>
                 </Grid>
             </Grid>
 
